@@ -1,4 +1,6 @@
 # Getting started
+To just play around with this project, clone in and open it in your favority editor. 
+Below the details of the project setup are explained.
 
 ## Requirements
 Peerbit can only now easily be consumed with Typescript projects that are ESM compatible. You also need to turn on 
@@ -6,7 +8,7 @@ Peerbit can only now easily be consumed with Typescript projects that are ESM co
 ```sh
 "experimentalDecorators" : true
 ```
-in the tsconfig.json
+in the `compilerOptions` in tsconfig.json
 
 Check this [tsconfig.json](./tsconfig.json) for reference
 
