@@ -5,10 +5,13 @@ import { webSockets } from '@libp2p/websockets'
 import { noise } from '@chainsafe/libp2p-noise'
 import { gossipsub } from '@chainsafe/libp2p-gossipsub'
 import { DocumentQueryRequest, Results } from "@dao-xyz/peerbit-document";
+import { Ed25519Keypair } from "@dao-xyz/peerbit-crypto";
 
 describe('suite', () => {
 
 	let node: Libp2p
+	let keypair: Ed25519Keypair
+
 	beforeAll(async () => {
 		// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
 		node = await createLibp2p({
@@ -16,6 +19,11 @@ describe('suite', () => {
 			connectionEncryption: [noise()], // Make connections encrypted
 			pubsub: gossipsub()  // required in this version of Peerbit, but will not in the future
 		})
+
+		// We create a keypair here to act as an identity accross our test
+		// In real world app we would perhaps load this from disc, or store in browser cache
+		keypair = await Ed25519Keypair.create();
+
 	})
 
 	afterAll(async () => {
@@ -24,14 +32,14 @@ describe('suite', () => {
 
 
 	it('start', async () => {
-		const client = await Peerbit.create(node)
-		const db = await client.open(new MyDatabase())
+		const client = await Peerbit.create(node, { identity: keypair })
+		const db = await client.open(new MyDatabase(),)
 		console.log(db.address.toString())
 		expect(db.address.toString().length).toBeGreaterThan(0) // Some address like
 	})
 
 	it('adds 100 document and search for all of them', async () => {
-		const client = await Peerbit.create(node)
+		const client = await Peerbit.create(node, { identity: keypair })
 		const db = await client.open(new MyDatabase())
 		console.log(db.address.toString())
 
