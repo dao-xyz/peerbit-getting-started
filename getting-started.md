@@ -118,12 +118,6 @@ export class TextDocument extends BaseDocument {
 	}
 }
 ```
-As you might have seen the @field, @variant decorators are used on multiple places. They indicate how the client should serialize/deserialize the databases and content you create. Peerbit uses a serialization format by default called Borsh, it provides similiar functionality to Protobuf but is simpler to understand and the implementation in Typescript requires less code than a Protobuf equivalent (and is faster). There are many reasons for not using JSON as a serialization format. Mainly, JSON serialization does not enforce any kind of conistency, different peers might get different serialized bytes if they would use `JSON.stringify(...)` this would be that the hashes and therefore the content addresses of the things you would create with Peerbit would be ambgious. To circumvent this one could use deterministic JSON parsers, but then you would pay a great performance cost for that. Furthermore, serialization formats like Borsh and Protobuf comes with built-in typechecking which mean you have to write a lot less validation and testing code for you applications.   
-
-In the future there might be support for more kinds of serialization formats, like protobuf and JSON (if you want to use it for other reasons), but for now you would have to stick with Borsh. 
-
-For more info about how you can serialize things, [see this](https://github.com/dao-xyz/borsh-ts). 
-
 and update the Database program definition
 
 ```typescript
@@ -153,6 +147,11 @@ export class MyDatabase extends Program {
 
 See [this](./src/index.ts) for a completed code
 
+As you might have seen the @field, @variant decorators are used on multiple places. They indicate how the client should serialize/deserialize the databases and content you create. Peerbit uses a serialization format by default called Borsh, it provides similiar functionality to Protobuf but is simpler to understand and the implementation in Typescript requires less code than a Protobuf equivalent (and is faster). There are many reasons for not using JSON as a serialization format. Mainly, JSON serialization does not enforce any kind of conistency, different peers might get different serialized bytes if they would use `JSON.stringify(...)` this would be that the hashes and therefore the content addresses of the things you would create with Peerbit would be ambgious. To circumvent this one could use deterministic JSON parsers, but then you would pay a great performance cost for that. Furthermore, serialization formats like Borsh and Protobuf comes with built-in typechecking which mean you have to write a lot less validation and testing code for you applications.   
+
+In the future there might be support for more kinds of serialization formats, like protobuf and JSON (if you want to use it for other reasons), but for now you would have to stick with Borsh. 
+
+For more info about how you can serialize things, [see this](https://github.com/dao-xyz/borsh-ts). 
 
 
 ## Adding the first documents
