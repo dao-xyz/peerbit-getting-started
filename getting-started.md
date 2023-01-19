@@ -51,7 +51,9 @@ import { Program } from "@dao-xyz/peerbit-program";
 import { variant } from "@dao-xyz/borsh"; // Serialization library
 
 
-// The line below will make sure that every time the database manifest gets seriaized, "document-store" will prefix the serialized bytes (in UTF-8 encoding) so that peers who open the database (who recieve the database manifest in serialized bytes) can decode into this particular class. 
+// The line below will make sure that every time the database manifest
+// gets seriaized, "document-store" will prefix the serialized bytes (in UTF-8 encoding) so that peers
+// who open the database (who recieve the database manifest in serialized bytes) can decode into this particular class. 
 @variant("document-store") 
 class MyDatabase extends Program {
     async setup() {
