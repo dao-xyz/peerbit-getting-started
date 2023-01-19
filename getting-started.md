@@ -56,7 +56,7 @@ import { variant } from "@dao-xyz/borsh"; // Serialization library
 class MyDatabase extends Program {
     async setup() {
         // this will be invoked on startup
-		console.log("Setting up!")
+	console.log("Setting up!")
     }
 }
 
