@@ -2,7 +2,7 @@
 This project contains a minimal configuration on how to use Peerbit and do testing with Jest. 
 Clone it to get started right away!
 
-In [index.ts](./src/index.ts) we are creatinga  Database for text documents, which we try out in the [tests](./src/index.test.ts)
+In [index.ts](./src/index.ts) we are creating a Database for text documents, which we try out in the [tests](./src/index.test.ts)
 
 ## [Getting started guide about this project](./getting-started.md)
 
