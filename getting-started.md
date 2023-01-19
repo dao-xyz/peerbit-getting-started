@@ -114,6 +114,7 @@ export class TextDocument extends BaseDocument {
 	}
 }
 ```
+For more info about how you can serialize things, [see this](https://github.com/dao-xyz/borsh-ts). 
 
 and update the Database program definition
 
