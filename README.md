@@ -1,5 +1,6 @@
 # Peerbit boilerplate project
-This project contains a minimal configuration on how to use Peerbit and do testing with Jest
+This project contains a minimal configuration on how to use Peerbit and do testing with Jest. 
+Clone it to get started right away!
 
 In [index.ts](./src/index.ts) we are creatinga  Database for text documents, which we try out in the [tests](./src/index.test.ts)
 
