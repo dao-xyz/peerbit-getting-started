@@ -9,7 +9,7 @@ export class BaseDocument { }
 
 
 // We version our documents with a single byte, so in the future, if we want to upgrade our document definition
-// we can do @variant(1) which allows use to store and manage both Documents of type variant 0 and variant 1 in our Document database
+// we can do @variant(1) which allows us to store and manage both Documents of type variant 0 and variant 1 in our Document database
 // (This is not needed but recommended)
 @variant(0)
 export class TextDocument extends BaseDocument {
