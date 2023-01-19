@@ -4,7 +4,7 @@ Clone it to get started right away!
 
 In [index.ts](./src/index.ts) we are creating a Database for text documents, which we try out in the [tests](./src/index.test.ts)
 
-## [Getting started guide about this project](./getting-started.md)
+## [Click here to see a getting started guide about this project](./getting-started.md)
 
 ## Install
 ```sh
