@@ -41,6 +41,10 @@ const libp2pInstance = await createLibp2p({
 
 const client = await Peerbit.create(libp2pInstance)
 ```
+This will start a client where all data is stored in RAM, if you want to create a client where data persists after stop (so you can restart), you can provide a directory path to the options: 
+```typescript
+const client = await Peerbit.create(libp2pInstance, { directory: "./some-folder" })
+```
 
 ## Your first database
 Defining a database is done by extending ```Program```
