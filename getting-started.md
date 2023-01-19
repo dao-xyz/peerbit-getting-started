@@ -68,7 +68,7 @@ class MyDatabase extends Program {
 
 ```
 
-This database will do anything, it just supports to be opened and closed 
+This database can't do anything as of now. It just supports to be opened and closed.
 
 Creating a new database from the definition
 ```typescript
