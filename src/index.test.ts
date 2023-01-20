@@ -135,7 +135,7 @@ describe('suite', () => {
 		// This means that the hash of the serialized bytes will be the same
 		// hence the address will be the same
 
-		// calling new MyDatabase() (without id property) will output different bytes everytime, because its id will be generated randomly
+		// serializing new MyDatabase() (without id property) will output different bytes everytime, because its id will be generated randomly
 
 		// this is useful when you don't want to manage an address, but you want to hardcode a constructor
 		// or when you wan't to create a "local" first app, where you want to be able to load the database without having to ask peers
