@@ -33,8 +33,8 @@ export class MyDatabase extends Program {
 	@field({ type: Documents })
 	documents: Documents<BaseDocument>
 
-	constructor() {
-		super()
+	constructor(properties?: { id: string }) {
+		super(properties)
 		this.documents = new Documents({ index: new DocumentIndex({ indexBy: 'id' }) })
 	}
 
