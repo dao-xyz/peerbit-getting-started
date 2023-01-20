@@ -110,9 +110,9 @@ describe('suite', () => {
 	it('can create a database with same address everytime on open', async () => {
 
 
-		// when you do client.open("/peerbit/abc123xyz"), the address will be converted into a CID which will be queried from peer if you don't have it locally.
+		// when you do client.open("/peerbit/abc123xyz"), the address will be converted into a CID which will be queried from peers 
+		// if you don't have the content it represents locally.
 		// this can be great for online apps, but can be troublesome for apps that are mostly offline
-
 
 		// In this test we are going too see that we can create a database with the same address everytime
 		// by providing the "id" argument
