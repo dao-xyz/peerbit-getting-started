@@ -27,6 +27,7 @@ export class TextDocument extends BaseDocument {
 	}
 }
 
+// MyDatabase needs to extends Program so we later can "open" it using the Peerbit client
 @variant("my-database")
 export class MyDatabase extends Program {
 
