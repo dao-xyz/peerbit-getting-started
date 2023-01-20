@@ -24,6 +24,7 @@ describe('suite', () => {
 		// In real world app we would perhaps load this from disc, or store in browser cache
 		keypair = await Ed25519Keypair.create();
 
+
 	})
 
 	afterAll(async () => {
@@ -55,6 +56,51 @@ describe('suite', () => {
 
 		expect((foundResults.results)).toHaveLength(100)
 		console.log("First document:", (foundResults.results[0].value as TextDocument).text)
+	})
+
+
+	it('save-load database from disc', async () => {
+		let directory = './tmp/test/1';
+
+		// Cleanup from last run
+		const fs = await import('fs')
+		fs.existsSync(directory) && fs.rmdirSync(directory, { recursive: true })
+
+		// In order to get a recoverable state we need to pass 'directory' param when creating client
+		// this will ensure that we create a client that store content on disc rather than in RAM
+		let client = await Peerbit.create(node, { identity: keypair, directory: directory })
+
+		// Create a db as in the test before and add some documents
+		let db = await client.open(new MyDatabase())
+		let address = db.address.toString();
+		for (let i = 0; i < 100; i++) {
+			await db.documents.put(new TextDocument("This is document #" + i))
+		}
+
+		// Stop it (stops running processes like replication and networking).
+		// In "real" world apps where a server crashes, this will not be called
+		// and that is fine, everything is already written to disc. 
+		await client.stop()
+
+
+
+		// reload client from same directory and see if data persists 
+		client = await Peerbit.create(node, { identity: keypair, directory: './tmp/test/1/' })
+		db = await client.open<MyDatabase>(address)
+
+
+		await db.load(); // Call "load" to load the stored database from disc
+
+
+		let foundResults: Results<BaseDocument> | undefined = undefined;
+
+		await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), (results, from) => {
+			foundResults = results
+		}, { local: true, remote: false }) // Only search locally
+
+		expect((foundResults.results)).toHaveLength(100)
+		console.log("First document:", (foundResults.results[0].value as TextDocument).text)
+
 	})
 
 })
