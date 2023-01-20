@@ -141,11 +141,11 @@ describe('suite', () => {
 		// or when you wan't to create a "local" first app, where you want to be able to load the database without having to ask peers
 		// how to load specific database address
 
-		// Below are doing to showcase how you also can manually serialize/deserialize the database manifest
-		// (so you can share it with peers rather than the address if you want them to be able to load the database)
-		// just from a byte array
+		// Below is a showcase how you also can manually serialize/deserialize the database manifest
+		// (so you can share it with peers rather than the address if you want them to be able to load the database for the first time, 
+		// while beeing offline). Just from a byte array
 
-		const bytes = serialize(db2) // Uint8Array
+		const bytes = serialize(db2) // Uint8Array, serialize our database "manifest"
 		const base64 = toBase64(bytes);
 		// you can send these 'bytes' or the base64 string to your peer, so that they can load the database address without beeing connect to anyone
 
