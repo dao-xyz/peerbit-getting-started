@@ -51,14 +51,12 @@ describe('suite', () => {
 			await db.documents.put(new TextDocument("This is document #" + i))
 		}
 
-		let foundResults: Results<BaseDocument> | undefined = undefined;
+		let foundResults: Results<BaseDocument> | undefined;
 		await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), (results, from) => {
-
 			foundResults = results
 		}, { local: true, remote: false }) // Only search locally
-
-		expect((foundResults.results)).toHaveLength(100)
-		console.log("First document:", (foundResults.results[0].value as TextDocument).text)
+		expect(foundResults?.results).toHaveLength(100)
+		console.log("First document:", (foundResults?.results[0].value as TextDocument).text)
 	})
 
 
@@ -95,14 +93,14 @@ describe('suite', () => {
 		await db.load(); // Call "load" to load the stored database from disc
 
 
-		let foundResults: Results<BaseDocument> | undefined = undefined;
+		let foundResults: Results<BaseDocument> | undefined;
 
 		await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), (results, from) => {
 			foundResults = results
 		}, { local: true, remote: false }) // Only search locally
 
-		expect((foundResults.results)).toHaveLength(100)
-		console.log("First document:", (foundResults.results[0].value as TextDocument).text)
+		expect((foundResults?.results)).toHaveLength(100)
+		console.log("First document:", (foundResults?.results[0].value as TextDocument).text)
 
 	})
 
