@@ -36,14 +36,14 @@ describe('suite', () => {
 
 
 	it('start', async () => {
-		const client = await Peerbit.create(node, { identity: keypair })
+		const client = await Peerbit.create({ libp2p: node, identity: keypair })
 		const db = await client.open(new MyDatabase(),)
 		console.log(db.address.toString())
 		expect(db.address.toString().length).toBeGreaterThan(0) // Some address like
 	})
 
 	it('adds 100 document and search for all of them', async () => {
-		const client = await Peerbit.create(node, { identity: keypair })
+		const client = await Peerbit.create({ libp2p: node, identity: keypair })
 		const db = await client.open(new MyDatabase())
 		console.log(db.address.toString())
 
@@ -69,7 +69,7 @@ describe('suite', () => {
 
 		// In order to get a recoverable state we need to pass 'directory' param when creating client
 		// this will ensure that we create a client that store content on disc rather than in RAM
-		let client = await Peerbit.create(node, { identity: keypair, directory: directory })
+		let client = await Peerbit.create({ libp2p: node, identity: keypair, directory: directory })
 
 		// Create a db as in the test before and add some documents
 		let db = await client.open(new MyDatabase())
@@ -86,7 +86,7 @@ describe('suite', () => {
 
 
 		// reload client from same directory and see if data persists 
-		client = await Peerbit.create(node, { identity: keypair, directory: './tmp/test/1/' })
+		client = await Peerbit.create({ libp2p: node, identity: keypair, directory: './tmp/test/1/' })
 		db = await client.open<MyDatabase>(address)
 
 
@@ -116,7 +116,7 @@ describe('suite', () => {
 		// by providing the "id" argument
 		// so that you will not have to ask peers for database manifests if you are opening the database for the first time
 
-		let client = await Peerbit.create(node)
+		let client = await Peerbit.create({ libp2p: node })
 		const db1 = await client.open(new MyDatabase({ id: "some-id" }))
 		const address1 = db1.address;
 
