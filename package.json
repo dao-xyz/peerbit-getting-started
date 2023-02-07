@@ -24,7 +24,8 @@
 	},
 	"dependencies": {
 		"nanoid": "^4.0.0",
-		"@dao-xyz/peerbit": "^0.0.103",
+		"@dao-xyz/peerbit": "^0.1.15",
+		"@dao-xyz/peerbit-document": "^0.1.15",
 		"@libp2p/websockets": "^5.0.3",
 		"@chainsafe/libp2p-noise": "^10.2.0",
 		"@chainsafe/libp2p-gossipsub": "^5.0.0"
