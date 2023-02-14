@@ -2,8 +2,7 @@ import { BaseDocument, MyDatabase, TextDocument } from './index.js'
 import { Peerbit } from "@dao-xyz/peerbit";
 import { createLibp2p, Libp2p } from 'libp2p'
 import { webSockets } from '@libp2p/websockets'
-import { noise } from '@chainsafe/libp2p-noise'
-import { gossipsub } from '@chainsafe/libp2p-gossipsub'
+import { noise } from '@dao-xyz/libp2p-noise'
 import { DocumentQueryRequest, Results } from "@dao-xyz/peerbit-document";
 import { Ed25519Keypair } from "@dao-xyz/peerbit-crypto";
 import { serialize, deserialize } from '@dao-xyz/borsh';
@@ -20,7 +19,6 @@ describe('suite', () => {
 		node = await createLibp2p({
 			transports: [webSockets()],
 			connectionEncryption: [noise()], // Make connections encrypted
-			pubsub: gossipsub()  // required in this version of Peerbit, but will not in the future
 		})
 
 		// We create a keypair here to act as an identity accross our test
@@ -63,6 +61,7 @@ describe('suite', () => {
 	it('save-load database from disc', async () => {
 		let directory = './tmp/test/1';
 
+
 		// Cleanup from last run
 		const fs = await import('fs')
 		fs.existsSync(directory) && fs.rmSync(directory, { recursive: true })
@@ -86,7 +85,7 @@ describe('suite', () => {
 
 
 		// reload client from same directory and see if data persists 
-		client = await Peerbit.create({ libp2p: node, identity: keypair, directory: './tmp/test/1/' })
+		client = await Peerbit.create({ libp2p: node, identity: keypair, directory })
 		db = await client.open<MyDatabase>(address)
 
 
