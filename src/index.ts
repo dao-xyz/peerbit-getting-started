@@ -1,7 +1,7 @@
 import { field, variant } from "@dao-xyz/borsh";
 import { Program } from "@dao-xyz/peerbit-program";
 import { Documents, DocumentIndex } from "@dao-xyz/peerbit-document";
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 
 
 // Abstract document definition we can create many kinds of document types from
@@ -22,7 +22,7 @@ export class TextDocument extends BaseDocument {
 
 	constructor(text: string) {
 		super()
-		this.id = nanoid()
+		this.id = uuid()
 		this.text = text;
 	}
 }
