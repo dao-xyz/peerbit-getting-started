@@ -48,13 +48,11 @@ describe('suite', () => {
 		for (let i = 0; i < 100; i++) {
 			await db.documents.put(new TextDocument("This is document #" + i))
 		}
-
-		let foundResults: Results<BaseDocument> | undefined;
-		await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), (results, from) => {
-			foundResults = results
-		}, { local: true, remote: false }) // Only search locally
-		expect(foundResults?.results).toHaveLength(100)
-		console.log("First document:", (foundResults?.results[0].value as TextDocument).text)
+		const results = await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), { local: true, remote: false })
+		// Results will be an array, each elements represents the results from a peer, since we are querying locally
+		// we will only have one element in this array (our local node)
+		expect(results[0]?.results).toHaveLength(100)
+		console.log("First document:", (results[0]?.results[0].value as TextDocument).text)
 	})
 
 
@@ -91,15 +89,12 @@ describe('suite', () => {
 
 		await db.load(); // Call "load" to load the stored database from disc
 
+		const results = await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), { local: true, remote: false }) // Only search locally
 
-		let foundResults: Results<BaseDocument> | undefined;
-
-		await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), (results, from) => {
-			foundResults = results
-		}, { local: true, remote: false }) // Only search locally
-
-		expect((foundResults?.results)).toHaveLength(100)
-		console.log("First document:", (foundResults?.results[0].value as TextDocument).text)
+		// Results will be an array, each elements represents the results from a peer, since we are querying locally
+		// we will only have one element in this array (our local node)
+		expect((results[0]?.results)).toHaveLength(100)
+		console.log("First document:", (results[0]?.results[0].value as TextDocument).text)
 
 	})
 

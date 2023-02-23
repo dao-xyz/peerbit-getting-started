@@ -160,14 +160,13 @@ const db = await client.open(new MyDatabase())
 
 for (let i = 0; i < 100; i++) {
 	await db.documents.put(new TextDocument("text" + i))
-}
+};
 
-let foundResults: Results<any> | undefined = undefined;
-await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), (results, from) => {
+const results = await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), { local: true, remote: false }) // Only search locally
 
-	foundResults = results
-}, { local: true, remote: false }) // Only search locally
-
+// results will be an array, representing results from each peer that returned responses. 
+// Quering locally will yield one element (our own, local search result)
+const foundResults = results[0];
 console.log(foundResults.result.length) // 100
 console.log("First document:", (foundResults.results[0].value as TextDocument).text)
 ```
