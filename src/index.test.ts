@@ -3,7 +3,7 @@ import { Peerbit } from "@dao-xyz/peerbit";
 import { createLibp2p, Libp2p } from 'libp2p'
 import { webSockets } from '@libp2p/websockets'
 import { noise } from '@dao-xyz/libp2p-noise'
-import { DocumentQueryRequest, Results } from "@dao-xyz/peerbit-document";
+import { DocumentQuery, Results } from "@dao-xyz/peerbit-document";
 import { Ed25519Keypair } from "@dao-xyz/peerbit-crypto";
 import { serialize, deserialize } from '@dao-xyz/borsh';
 import { Program } from '@dao-xyz/peerbit-program';
@@ -48,7 +48,7 @@ describe('suite', () => {
 		for (let i = 0; i < 100; i++) {
 			await db.documents.put(new TextDocument("This is document #" + i))
 		}
-		const results = await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), { local: true, remote: false })
+		const results = await db.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false })
 		// Results will be an array, each elements represents the results from a peer, since we are querying locally
 		// we will only have one element in this array (our local node)
 		expect(results[0]?.results).toHaveLength(100)
@@ -89,7 +89,7 @@ describe('suite', () => {
 
 		await db.load(); // Call "load" to load the stored database from disc
 
-		const results = await db.documents.index.query(new DocumentQueryRequest({ queries: [] }), { local: true, remote: false }) // Only search locally
+		const results = await db.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false }) // Only search locally
 
 		// Results will be an array, each elements represents the results from a peer, since we are querying locally
 		// we will only have one element in this array (our local node)
