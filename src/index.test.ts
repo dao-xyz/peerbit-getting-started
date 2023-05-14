@@ -1,6 +1,5 @@
 import { MyDatabase, TextDocument } from './index.js'
 import { Peerbit } from "@dao-xyz/peerbit";
-import { createLibp2p, Libp2p } from 'libp2p'
 import { webSockets } from '@libp2p/websockets'
 import { noise } from '@dao-xyz/libp2p-noise'
 import { DocumentQuery } from "@dao-xyz/peerbit-document";
