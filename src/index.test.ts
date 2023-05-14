@@ -1,47 +1,48 @@
-import { BaseDocument, MyDatabase, TextDocument } from './index.js'
+import { MyDatabase, TextDocument } from './index.js'
 import { Peerbit } from "@dao-xyz/peerbit";
 import { createLibp2p, Libp2p } from 'libp2p'
 import { webSockets } from '@libp2p/websockets'
 import { noise } from '@dao-xyz/libp2p-noise'
-import { DocumentQuery, Results } from "@dao-xyz/peerbit-document";
-import { Ed25519Keypair } from "@dao-xyz/peerbit-crypto";
+import { DocumentQuery } from "@dao-xyz/peerbit-document";
+import { Ed25519Keypair, randomBytes } from "@dao-xyz/peerbit-crypto";
 import { serialize, deserialize } from '@dao-xyz/borsh';
 import { Program } from '@dao-xyz/peerbit-program';
 import { toBase64, fromBase64 } from '@dao-xyz/peerbit-crypto'
 
 describe('suite', () => {
 
-	let node: Libp2p
-	let keypair: Ed25519Keypair
+	let client: Peerbit
 
-	beforeAll(async () => {
-		// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
-		node = await createLibp2p({
-			transports: [webSockets()],
-			connectionEncryption: [noise()], // Make connections encrypted
-		})
-
-		// We create a keypair here to act as an identity accross our test
-		// In real world app we would perhaps load this from disc, or store in browser cache
-		keypair = await Ed25519Keypair.create();
-
-
-	})
-
-	afterAll(async () => {
-		await node.stop()
+	afterEach(async () => {
+		await client?.stop()
 	})
 
 
 	it('start', async () => {
-		const client = await Peerbit.create({ libp2p: node, identity: keypair })
+		const client = await Peerbit.create({
+			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
+			libp2p: {
+				transports: [webSockets()],
+				connectionEncryption: [noise()], // Make connections encrypted
+			},
+			identity: await Ed25519Keypair.create()
+		})
+
 		const db = await client.open(new MyDatabase(),)
 		console.log(db.address.toString())
 		expect(db.address.toString().length).toBeGreaterThan(0) // Some address like
 	})
 
 	it('adds 100 document and search for all of them', async () => {
-		const client = await Peerbit.create({ libp2p: node, identity: keypair })
+		const client = await Peerbit.create({
+			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
+			libp2p: {
+				transports: [webSockets()],
+				connectionEncryption: [noise()], // Make connections encrypted
+			},
+			identity: await Ed25519Keypair.create()
+		})
+
 		const db = await client.open(new MyDatabase())
 		console.log(db.address.toString())
 
@@ -66,7 +67,17 @@ describe('suite', () => {
 
 		// In order to get a recoverable state we need to pass 'directory' param when creating client
 		// this will ensure that we create a client that store content on disc rather than in RAM
-		let client = await Peerbit.create({ libp2p: node, identity: keypair, directory: directory })
+		let client = await Peerbit.create({
+			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
+			libp2p: {
+				transports: [webSockets()],
+				connectionEncryption: [noise()],
+			},
+			identity: await Ed25519Keypair.create(),
+
+			// Pass directory here
+			directory
+		})
 
 		// Create a db as in the test before and add some documents
 		let db = await client.open(new MyDatabase())
@@ -83,7 +94,16 @@ describe('suite', () => {
 
 
 		// reload client from same directory and see if data persists 
-		client = await Peerbit.create({ libp2p: node, identity: keypair, directory })
+		client = await Peerbit.create({
+			libp2p: {
+				transports: [webSockets()],
+				connectionEncryption: [noise()],
+			},
+			identity: await Ed25519Keypair.create(),
+
+			// Same directory here
+			directory
+		})
 		db = await client.open<MyDatabase>(address)
 
 
@@ -110,11 +130,20 @@ describe('suite', () => {
 		// by providing the "id" argument
 		// so that you will not have to ask peers for database manifests if you are opening the database for the first time
 
-		let client = await Peerbit.create({ libp2p: node })
-		const db1 = await client.open(new MyDatabase({ id: "some-id" }))
+		let client = await Peerbit.create({
+			libp2p: {
+				transports: [webSockets()],
+				connectionEncryption: [noise()],
+			},
+			identity: await Ed25519Keypair.create(),
+		})
+
+		const FIXED_DATABASE_ID = randomBytes(32);
+
+		const db1 = await client.open(new MyDatabase({ id: FIXED_DATABASE_ID }))
 		const address1 = db1.address;
 
-		const db2 = await client.open(new MyDatabase({ id: "some-id" }))
+		const db2 = await client.open(new MyDatabase({ id: FIXED_DATABASE_ID }))
 		const address2 = db2.address;
 
 		expect(address1.toString()).toEqual(address2.toString())
@@ -123,7 +152,7 @@ describe('suite', () => {
 		// Internally, when you do "client.open(new MyDatabase({ id: "some-id" }))", the database will be serialized and saved
 		// and the serialized bytes of new MyDatabase({ id: "some-id" }) will determine the address of the database, through a hash function
 
-		// when new MyDatabase({ id: "some-id" }) will be serialized, it will output exactly the same bytes, every time
+		// when new MyDatabase({ id: SOME_FIXED_ID }) will be serialized, it will output exactly the same bytes, every time
 		// This means that the hash of the serialized bytes will be the same
 		// hence the address will be the same
 

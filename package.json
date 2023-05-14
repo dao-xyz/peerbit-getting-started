@@ -24,9 +24,9 @@
 	},
 	"dependencies": {
 		"uuid": "^9.0.0",
-		"@dao-xyz/peerbit": "^0.3.7",
-		"@dao-xyz/peerbit-document": "^0.3.7",
-		"@libp2p/websockets": "^5.0.7"
+		"@dao-xyz/peerbit": "^0.7.1",
+		"@dao-xyz/peerbit-document": "^0.7.0",
+		"@libp2p/websockets": "^6.0.1"
 	},
 	"scripts": {
 		"clean": "shx rm -rf lib/*",
