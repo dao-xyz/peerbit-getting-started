@@ -24,8 +24,8 @@
 	},
 	"dependencies": {
 		"uuid": "^9.0.0",
-		"@dao-xyz/peerbit": "^0.7.5",
-		"@dao-xyz/peerbit-document": "^0.7.3",
+		"@dao-xyz/peerbit": "^0.8.0",
+		"@dao-xyz/peerbit-document": "^0.8.0",
 		"@libp2p/websockets": "^6.0.1"
 	},
 	"scripts": {
