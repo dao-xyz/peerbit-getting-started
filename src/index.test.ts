@@ -5,20 +5,24 @@ import { noise } from '@dao-xyz/libp2p-noise'
 import { DocumentQuery } from "@dao-xyz/peerbit-document";
 import { Ed25519Keypair, randomBytes } from "@dao-xyz/peerbit-crypto";
 import { serialize, deserialize } from '@dao-xyz/borsh';
-import { Program } from '@dao-xyz/peerbit-program';
+import { Program, ObserverType, ReplicatorType } from '@dao-xyz/peerbit-program';
 import { toBase64, fromBase64 } from '@dao-xyz/peerbit-crypto'
+import { waitFor } from '@dao-xyz/peerbit-time'
 
 describe('suite', () => {
 
 	let client: Peerbit
+	let client2: Peerbit
 
 	afterEach(async () => {
 		await client?.stop()
+		await client2?.stop()
+
 	})
 
 
 	it('start', async () => {
-		const client = await Peerbit.create({
+		client = await Peerbit.create({
 			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
 			libp2p: {
 				transports: [webSockets()],
@@ -33,7 +37,7 @@ describe('suite', () => {
 	})
 
 	it('adds 100 document and search for all of them', async () => {
-		const client = await Peerbit.create({
+		client = await Peerbit.create({
 			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
 			libp2p: {
 				transports: [webSockets()],
@@ -64,7 +68,7 @@ describe('suite', () => {
 
 		// In order to get a recoverable state we need to pass 'directory' param when creating client
 		// this will ensure that we create a client that store content on disc rather than in RAM
-		let client = await Peerbit.create({
+		client = await Peerbit.create({
 			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
 			libp2p: {
 				transports: [webSockets()],
@@ -124,7 +128,7 @@ describe('suite', () => {
 		// by providing the "id" argument
 		// so that you will not have to ask peers for database manifests if you are opening the database for the first time
 
-		let client = await Peerbit.create({
+		client = await Peerbit.create({
 			libp2p: {
 				transports: [webSockets()],
 				connectionEncryption: [noise()],
@@ -132,7 +136,7 @@ describe('suite', () => {
 			identity: await Ed25519Keypair.create(),
 		})
 
-		const FIXED_DATABASE_ID = randomBytes(32);
+		const FIXED_DATABASE_ID = "SOME_ID";
 
 		const db1 = await client.open(new MyDatabase({ id: FIXED_DATABASE_ID }))
 		const address1 = db1.address;
@@ -169,6 +173,54 @@ describe('suite', () => {
 		expect(deserializedProgram).toBeInstanceOf(MyDatabase); // If we do type checking we can see that it correctly deserialzied it into MyDatabas
 		const db3 = await client.open(deserializedProgram as MyDatabase)
 		expect(db3).toBeInstanceOf(MyDatabase);
+
+
+
+	})
+
+
+	it('can sync between peers', async () => {
+
+		client = await Peerbit.create({
+			libp2p: {
+				transports: [webSockets()],
+				connectionEncryption: [noise()],
+			},
+			identity: await Ed25519Keypair.create(),
+		})
+
+
+		client2 = await Peerbit.create({
+			libp2p: {
+				transports: [webSockets()],
+				connectionEncryption: [noise()],
+			},
+			identity: await Ed25519Keypair.create(),
+		})
+
+		// Connect clients
+
+		await client.dial(client2); // you can also do 'client.dial(client2.libp2p.getMultiaddrs())' to dial specific addresses
+
+		const db1 = await client.open(new MyDatabase({ id: "abc123" }))
+		await db1.documents.put(new TextDocument("Hello"));
+		const db2 = await client2.open<MyDatabase>(db1.address) // role = new ReplicatorType() by default
+
+		// You can also open with role ObserverType, to not do any replication work
+		// const db2 = await client2.open<MyDatabase>(db1.address, { role: new ObserverType() })
+		await db2.documents.put(new TextDocument("World"));  // role = new ReplicatorType() by default
+
+
+		// Check that both clients now have both documents
+		// it documents will not sync be synced after 'await put' so we have to wait for them to arrive
+		await waitFor(() => db1.documents.index.size === 2) // Now synced!
+		await waitFor(() => db2.documents.index.size === 2) // Now synced!
+
+		const results1 = await db1.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false })
+		expect(results1.map(r => (r as TextDocument).text).sort()).toEqual(["Hello", "World"])
+
+		const results2 = await db1.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false })
+		expect(results2.map(r => (r as TextDocument).text).sort()).toEqual(["Hello", "World"])
 
 
 
