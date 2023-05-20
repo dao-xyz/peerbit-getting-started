@@ -31,11 +31,17 @@ export class TextDocument extends BaseDocument {
 @variant("my-database")
 export class MyDatabase extends Program {
 
+	// We create an ID field so that the hash of the database/program can be unique defined by this
+	// If this field is omitted calling .open(new MyDataBase()) would yield same address everytime, which is sometimes wanted, sometimes not
+	@field({ type: 'string' })
+	id: string;
+
 	@field({ type: Documents })
 	documents: Documents<BaseDocument>
 
-	constructor(properties?: { id: Uint8Array }) {
-		super(properties)
+	constructor(properties?: { id?: string }) {
+		super()
+		this.id = properties?.id || uuid()
 		this.documents = new Documents({ index: new DocumentIndex({ indexBy: 'id' }) })
 	}
 
