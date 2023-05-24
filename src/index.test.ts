@@ -31,7 +31,10 @@ describe('suite', () => {
 			identity: await Ed25519Keypair.create()
 		})
 
-		const db = await client.open(new MyDatabase(),)
+		// you can also open the client with default config
+		// client= await Peerbit.create({}) // will use weboSockets, tcp transport with noise encryption, and a new identitty will be created
+
+		const db = await client.open(new MyDatabase())
 		console.log(db.address.toString())
 		expect(db.address.toString().length).toBeGreaterThan(0) // Some address like
 	})
