@@ -2,7 +2,7 @@ import { MyDatabase, TextDocument } from './index.js'
 import { Peerbit } from "@dao-xyz/peerbit";
 import { webSockets } from '@libp2p/websockets'
 import { noise } from '@dao-xyz/libp2p-noise'
-import { DocumentQuery } from "@dao-xyz/peerbit-document";
+import { SearchRequest, SearchSortedRequest, Sort, SortDirection } from "@dao-xyz/peerbit-document";
 import { Ed25519Keypair, randomBytes } from "@dao-xyz/peerbit-crypto";
 import { serialize, deserialize } from '@dao-xyz/borsh';
 import { Program, ObserverType, ReplicatorType } from '@dao-xyz/peerbit-program';
@@ -55,9 +55,15 @@ describe('suite', () => {
 		for (let i = 0; i < 100; i++) {
 			await db.documents.put(new TextDocument("This is document #" + i))
 		}
-		const results = await db.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false })
+		const results = await db.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false })
 		expect(results).toHaveLength(100)
 		console.log("First document:", (results[0] as TextDocument).text)
+
+
+		// we can also query + sort
+		const resultsSorted = await db.documents.index.iterate(new SearchSortedRequest({ queries: [], sort: [new Sort({ direction: SortDirection.ASC, key: 'text' })] }), { local: true, remote: false })
+		const [first, second, third] = await resultsSorted.next(3) as [TextDocument, TextDocument, TextDocument]; // cast BaseDocument to TextDocument (assume safe, else we can do instanceof checks before casting)
+		console.log(`Sorted documents: first "${first.text}", second "${second.text}", third "${third.text}"`)
 	})
 
 
@@ -113,7 +119,7 @@ describe('suite', () => {
 
 		await db.load(); // Call "load" to load the stored database from disc
 
-		const results = await db.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false }) // Only search locally
+		const results = await db.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false }) // Only search locally
 		expect((results)).toHaveLength(100)
 		console.log("First document:", (results[0] as TextDocument).text)
 
@@ -156,8 +162,6 @@ describe('suite', () => {
 		// when new MyDatabase({ id: SOME_FIXED_ID }) will be serialized, it will output exactly the same bytes, every time
 		// This means that the hash of the serialized bytes will be the same
 		// hence the address will be the same
-
-		// serializing new MyDatabase() (without id property) will output different bytes everytime, because its id will be generated randomly
 
 		// this is useful when you don't want to manage an address, but you want to hardcode a constructor
 		// or when you wan't to create a "local" first app, where you want to be able to load the database without having to ask peers
@@ -219,10 +223,10 @@ describe('suite', () => {
 		await waitFor(() => db1.documents.index.size === 2) // Now synced!
 		await waitFor(() => db2.documents.index.size === 2) // Now synced!
 
-		const results1 = await db1.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false })
+		const results1 = await db1.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false })
 		expect(results1.map(r => (r as TextDocument).text).sort()).toEqual(["Hello", "World"])
 
-		const results2 = await db1.documents.index.query(new DocumentQuery({ queries: [] }), { local: true, remote: false })
+		const results2 = await db1.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false })
 		expect(results2.map(r => (r as TextDocument).text).sort()).toEqual(["Hello", "World"])
 
 
