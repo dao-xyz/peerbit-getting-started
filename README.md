@@ -4,7 +4,7 @@ Clone it to get started right away!
 
 In [index.ts](./src/index.ts) we are creating a Database for text documents, which we try out in the [tests](./src/index.test.ts)
 
-## [Click here to see a getting started guide about this project](./getting-started.md)
+
 
 ## Install
 ```sh
@@ -21,6 +21,14 @@ yarn test
 ```sh 
 yarn build
 ```
+
+# Getting started
+To just play around with this project, clone in and open it in your favority editor. 
+Below the details of the project setup are explained.
+
+# Documentation
+Peerbit documentation can be found at [peerbit.org](https://peerbit.org)
+
 
 ## VS Code users
 .vscode folder is included in this project
