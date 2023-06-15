@@ -1,6 +1,6 @@
 import { field, variant } from "@dao-xyz/borsh";
 import { Program } from "@dao-xyz/peerbit-program";
-import { Documents, DocumentIndex } from "@dao-xyz/peerbit-document";
+import { Documents } from "@dao-xyz/peerbit-document";
 import { v4 as uuid } from 'uuid';
 
 
@@ -42,12 +42,12 @@ export class MyDatabase extends Program {
 	constructor(properties?: { id?: string }) {
 		super()
 		this.id = properties?.id || uuid()
-		this.documents = new Documents({ index: new DocumentIndex({ indexBy: 'id' }) })
+		this.documents = new Documents()
 	}
 
 	async setup() {
 		// this will be invoked on startup
-		await this.documents.setup({ type: BaseDocument })
+		await this.documents.setup({ type: BaseDocument, index: { key: 'id' } })
 	}
 }
 

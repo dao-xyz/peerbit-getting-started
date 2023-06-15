@@ -2,10 +2,10 @@ import { MyDatabase, TextDocument } from './index.js'
 import { Peerbit } from "@dao-xyz/peerbit";
 import { webSockets } from '@libp2p/websockets'
 import { noise } from '@dao-xyz/libp2p-noise'
-import { SearchRequest, SearchSortedRequest, Sort, SortDirection } from "@dao-xyz/peerbit-document";
-import { Ed25519Keypair, randomBytes } from "@dao-xyz/peerbit-crypto";
+import { SearchRequest, Sort, SortDirection } from "@dao-xyz/peerbit-document";
+import { Ed25519Keypair } from "@dao-xyz/peerbit-crypto";
 import { serialize, deserialize } from '@dao-xyz/borsh';
-import { Program, ObserverType, ReplicatorType } from '@dao-xyz/peerbit-program';
+import { Program } from '@dao-xyz/peerbit-program';
 import { toBase64, fromBase64 } from '@dao-xyz/peerbit-crypto'
 import { waitFor } from '@dao-xyz/peerbit-time'
 
@@ -24,11 +24,13 @@ describe('suite', () => {
 	it('start', async () => {
 		client = await Peerbit.create({
 			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
-			libp2p: {
+			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
+			// You can provide a preconfigured libp2p client here, or omit it, 
+			// and it will created for you
+			/* libp2p: {
 				transports: [webSockets()],
 				connectionEncryption: [noise()], // Make connections encrypted
-			},
-			identity: await Ed25519Keypair.create()
+			}, */
 		})
 
 		// you can also open the client with default config
@@ -40,14 +42,7 @@ describe('suite', () => {
 	})
 
 	it('adds 100 document and search for all of them', async () => {
-		client = await Peerbit.create({
-			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
-			libp2p: {
-				transports: [webSockets()],
-				connectionEncryption: [noise()], // Make connections encrypted
-			},
-			identity: await Ed25519Keypair.create()
-		})
+		client = await Peerbit.create()
 
 		const db = await client.open(new MyDatabase())
 		console.log(db.address.toString())
@@ -55,13 +50,13 @@ describe('suite', () => {
 		for (let i = 0; i < 100; i++) {
 			await db.documents.put(new TextDocument("This is document #" + i))
 		}
-		const results = await db.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false })
+		const results = await db.documents.index.search(new SearchRequest({ query: [] }), { local: true, remote: false })
 		expect(results).toHaveLength(100)
 		console.log("First document:", (results[0] as TextDocument).text)
 
 
 		// we can also query + sort
-		const resultsSorted = await db.documents.index.iterate(new SearchSortedRequest({ queries: [], sort: [new Sort({ direction: SortDirection.ASC, key: 'text' })] }), { local: true, remote: false })
+		const resultsSorted = await db.documents.index.iterate(new SearchRequest({ query: [], sort: [new Sort({ direction: SortDirection.ASC, key: 'text' })] }), { local: true, remote: false })
 		const [first, second, third] = await resultsSorted.next(3) as [TextDocument, TextDocument, TextDocument]; // cast BaseDocument to TextDocument (assume safe, else we can do instanceof checks before casting)
 		console.log(`Sorted documents: first "${first.text}", second "${second.text}", third "${third.text}"`)
 	})
@@ -79,13 +74,15 @@ describe('suite', () => {
 		// this will ensure that we create a client that store content on disc rather than in RAM
 		client = await Peerbit.create({
 			// More info about configs here https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md#configuring-libp2p
-			libp2p: {
+			// You can provide a preconfigured libp2p client here, or omit it, 
+			// and it will created for you
+			/* libp2p: {
 				transports: [webSockets()],
 				connectionEncryption: [noise()],
 			},
-			identity: await Ed25519Keypair.create(),
-
+			*/
 			// Pass directory here
+			// In this directory keys and data will be stored
 			directory
 		})
 
@@ -105,11 +102,6 @@ describe('suite', () => {
 
 		// reload client from same directory and see if data persists 
 		client = await Peerbit.create({
-			libp2p: {
-				transports: [webSockets()],
-				connectionEncryption: [noise()],
-			},
-			identity: await Ed25519Keypair.create(),
 
 			// Same directory here
 			directory
@@ -119,7 +111,7 @@ describe('suite', () => {
 
 		await db.load(); // Call "load" to load the stored database from disc
 
-		const results = await db.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false }) // Only search locally
+		const results = await db.documents.index.search(new SearchRequest({ query: [] }), { local: true, remote: false }) // Only search locally
 		expect((results)).toHaveLength(100)
 		console.log("First document:", (results[0] as TextDocument).text)
 
@@ -137,13 +129,7 @@ describe('suite', () => {
 		// by providing the "id" argument
 		// so that you will not have to ask peers for database manifests if you are opening the database for the first time
 
-		client = await Peerbit.create({
-			libp2p: {
-				transports: [webSockets()],
-				connectionEncryption: [noise()],
-			},
-			identity: await Ed25519Keypair.create(),
-		})
+		client = await Peerbit.create()
 
 		const FIXED_DATABASE_ID = "SOME_ID";
 
@@ -188,22 +174,8 @@ describe('suite', () => {
 
 	it('can sync between peers', async () => {
 
-		client = await Peerbit.create({
-			libp2p: {
-				transports: [webSockets()],
-				connectionEncryption: [noise()],
-			},
-			identity: await Ed25519Keypair.create(),
-		})
-
-
-		client2 = await Peerbit.create({
-			libp2p: {
-				transports: [webSockets()],
-				connectionEncryption: [noise()],
-			},
-			identity: await Ed25519Keypair.create(),
-		})
+		client = await Peerbit.create()
+		client2 = await Peerbit.create()
 
 		// Connect clients
 
@@ -223,10 +195,10 @@ describe('suite', () => {
 		await waitFor(() => db1.documents.index.size === 2) // Now synced!
 		await waitFor(() => db2.documents.index.size === 2) // Now synced!
 
-		const results1 = await db1.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false })
+		const results1 = await db1.documents.index.search(new SearchRequest({ query: [] }), { local: true, remote: false })
 		expect(results1.map(r => (r as TextDocument).text).sort()).toEqual(["Hello", "World"])
 
-		const results2 = await db1.documents.index.query(new SearchRequest({ queries: [] }), { local: true, remote: false })
+		const results2 = await db1.documents.index.search(new SearchRequest({ query: [] }), { local: true, remote: false })
 		expect(results2.map(r => (r as TextDocument).text).sort()).toEqual(["Hello", "World"])
 
 
