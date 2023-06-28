@@ -1,13 +1,10 @@
 import { MyDatabase, TextDocument } from './index.js'
-import { Peerbit } from "@dao-xyz/peerbit";
-import { webSockets } from '@libp2p/websockets'
-import { noise } from '@dao-xyz/libp2p-noise'
-import { SearchRequest, Sort, SortDirection } from "@dao-xyz/peerbit-document";
-import { Ed25519Keypair } from "@dao-xyz/peerbit-crypto";
+import { Peerbit } from "peerbit";
+import { SearchRequest, Sort, SortDirection } from "@peerbit/document";
 import { serialize, deserialize } from '@dao-xyz/borsh';
-import { Program } from '@dao-xyz/peerbit-program';
-import { toBase64, fromBase64 } from '@dao-xyz/peerbit-crypto'
-import { waitFor } from '@dao-xyz/peerbit-time'
+import { Program } from '@peerbit/program';
+import { toBase64, fromBase64, randomBytes } from '@peerbit/crypto'
+import { waitFor } from '@peerbit/time'
 
 describe('suite', () => {
 
@@ -106,10 +103,12 @@ describe('suite', () => {
 			// Same directory here
 			directory
 		})
+
+
+		// Open will automatically load previos state from disc
 		db = await client.open<MyDatabase>(address)
 
 
-		await db.load(); // Call "load" to load the stored database from disc
 
 		const results = await db.documents.index.search(new SearchRequest({ query: [] }), { local: true, remote: false }) // Only search locally
 		expect((results)).toHaveLength(100)
@@ -131,10 +130,11 @@ describe('suite', () => {
 
 		client = await Peerbit.create()
 
-		const FIXED_DATABASE_ID = "SOME_ID";
+		const FIXED_DATABASE_ID = randomBytes(32);
 
 		const db1 = await client.open(new MyDatabase({ id: FIXED_DATABASE_ID }))
 		const address1 = db1.address;
+		await db1.drop()
 
 		const db2 = await client.open(new MyDatabase({ id: FIXED_DATABASE_ID }))
 		const address2 = db2.address;
@@ -164,6 +164,12 @@ describe('suite', () => {
 		// Below is from the peer that just have seen the base64 and does not know what database it represents
 		const deserializedProgram = deserialize(fromBase64(base64), Program); // We deserialize into "Program" (which could be any database)
 		expect(deserializedProgram).toBeInstanceOf(MyDatabase); // If we do type checking we can see that it correctly deserialzied it into MyDatabas
+
+		// we need to drop db2 because else the new open 
+		// will cause an exception as it will open the same address
+		// Having two open database with the same address is currently not allowed
+		await db2.drop()
+
 		const db3 = await client.open(deserializedProgram as MyDatabase)
 		expect(db3).toBeInstanceOf(MyDatabase);
 
@@ -181,7 +187,7 @@ describe('suite', () => {
 
 		await client.dial(client2); // you can also do 'client.dial(client2.libp2p.getMultiaddrs())' to dial specific addresses
 
-		const db1 = await client.open(new MyDatabase({ id: "abc123" }))
+		const db1 = await client.open(new MyDatabase())
 		await db1.documents.put(new TextDocument("Hello"));
 		const db2 = await client2.open<MyDatabase>(db1.address) // role = new ReplicatorType() by default
 

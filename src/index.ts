@@ -1,6 +1,6 @@
 import { field, variant } from "@dao-xyz/borsh";
-import { Program } from "@dao-xyz/peerbit-program";
-import { Documents } from "@dao-xyz/peerbit-document";
+import { Program } from "@peerbit/program";
+import { Documents } from "@peerbit/document";
 import { v4 as uuid } from 'uuid';
 
 
@@ -31,23 +31,23 @@ export class TextDocument extends BaseDocument {
 @variant("my-database")
 export class MyDatabase extends Program {
 
-	// We create an ID field so that the hash of the database/program can be unique defined by this
-	// If this field is omitted calling .open(new MyDataBase()) would yield same address everytime, which is sometimes wanted, sometimes not
-	@field({ type: 'string' })
-	id: string;
+
 
 	@field({ type: Documents })
 	documents: Documents<BaseDocument>
 
-	constructor(properties?: { id?: string }) {
+	constructor(properties?: { id?: Uint8Array }) {
 		super()
-		this.id = properties?.id || uuid()
-		this.documents = new Documents()
+
+		// We create an ID field so that the hash of the database/program can be unique defined by this
+		// If this field is omitted calling .open(new MyDataBase()) would yield same address everytime, which is sometimes wanted, sometimes not
+
+		this.documents = new Documents({ id: properties?.id })
 	}
 
-	async setup() {
+	async open() {
 		// this will be invoked on startup
-		await this.documents.setup({ type: BaseDocument, index: { key: 'id' } })
+		await this.documents.open({ type: BaseDocument, index: { key: 'id' } })
 	}
 }
 
