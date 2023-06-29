@@ -24,9 +24,8 @@
 	},
 	"dependencies": {
 		"uuid": "^9.0.0",
-		"peerbit": "^1.0.3",
-		"@peerbit/document": "^1.0.4",
-		"@libp2p/websockets": "^6.0.1"
+		"peerbit": "^1.0.4",
+		"@peerbit/document": "^1.0.5"
 	},
 	"scripts": {
 		"clean": "shx rm -rf lib/*",
