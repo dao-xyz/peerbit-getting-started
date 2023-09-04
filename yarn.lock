@@ -927,21 +927,6 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@libp2p/crypto@^1.0.17":
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/@libp2p/crypto/-/crypto-1.0.17.tgz#e64043328c0c866bf7f4cc8560b4f483e9c745dc"
-  integrity sha512-Oeg0Eb/EvAho0gVkOgemXEgrVxWaT3x/DpFgkBdZ9qGxwq75w/E/oPc7souqBz+l1swfz37GWnwV7bIb4Xv5Ag==
-  dependencies:
-    "@libp2p/interface-keys" "^1.0.2"
-    "@libp2p/interfaces" "^3.2.0"
-    "@noble/ed25519" "^1.6.0"
-    "@noble/secp256k1" "^1.5.4"
-    multiformats "^11.0.0"
-    node-forge "^1.1.0"
-    protons-runtime "^5.0.0"
-    uint8arraylist "^2.4.3"
-    uint8arrays "^4.0.2"
-
 "@libp2p/crypto@^2.0.0", "@libp2p/crypto@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@libp2p/crypto/-/crypto-2.0.3.tgz#f9fa9c6df30508d62c61b5d02b3449e0feddeb5a"
@@ -966,12 +951,7 @@
     "@multiformats/multiaddr" "^12.1.5"
     uint8arraylist "^2.4.3"
 
-"@libp2p/interface-keys@^1.0.2":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@libp2p/interface-keys/-/interface-keys-1.0.8.tgz#2c6b55136113ae7cf78133d3c459cdf0455b29ae"
-  integrity sha512-CJ1SlrwuoHMquhEEWS77E+4vv7hwB7XORkqzGQrPQmA9MRdIEZRS64bA4JqCLUDa4ltH0l+U1vp0oZHLT67NEA==
-
-"@libp2p/interface-peer-id@^2.0.0", "@libp2p/interface-peer-id@^2.0.2":
+"@libp2p/interface-peer-id@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-peer-id/-/interface-peer-id-2.0.2.tgz#6302e70b6fc17c451bc3daa11447d059357bcc32"
   integrity sha512-9pZp9zhTDoVwzRmp0Wtxw0Yfa//Yc0GqBCJi3EznBDE6HGIAVvppR91wSh2knt/0eYg0AQj7Y35VSesUTzMCUg==
@@ -991,7 +971,7 @@
     p-defer "^4.0.0"
     uint8arraylist "^2.4.3"
 
-"@libp2p/interfaces@^3.2.0", "@libp2p/interfaces@^3.3.1", "@libp2p/interfaces@^3.3.2":
+"@libp2p/interfaces@^3.3.1", "@libp2p/interfaces@^3.3.2":
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/@libp2p/interfaces/-/interfaces-3.3.2.tgz#5d8079be845b0960939b5b18880e785a4714465a"
   integrity sha512-p/M7plbrxLzuQchvNwww1Was7ZeGE2NaOFulMaZBYIihU8z3fhaV+a033OqnC/0NTX/yhfdNOG7znhYq3XoR/g==
@@ -1088,16 +1068,6 @@
     protons-runtime "^5.0.0"
     uint8arraylist "^2.4.3"
     uint8arrays "^4.0.6"
-
-"@libp2p/peer-id@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@libp2p/peer-id/-/peer-id-2.0.3.tgz#7299d74eae7b2526123d941bdb2d08462704c79a"
-  integrity sha512-eZX+5ByUAzh8DrfjCan0spZGpvF7SxEBz4tOPoBMBCuKJJLr+8EokBO/5E3ceIw04f5+lAcD3CO3bccuKomp3Q==
-  dependencies:
-    "@libp2p/interface-peer-id" "^2.0.0"
-    "@libp2p/interfaces" "^3.2.0"
-    multiformats "^11.0.0"
-    uint8arrays "^4.0.2"
 
 "@libp2p/peer-id@^3.0.0", "@libp2p/peer-id@^3.0.2":
   version "3.0.2"
@@ -1283,95 +1253,85 @@
   dependencies:
     "@noble/hashes" "1.3.1"
 
-"@noble/ed25519@^1.6.0":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@noble/ed25519/-/ed25519-1.7.3.tgz#57e1677bf6885354b466c38e2b620c62f45a7123"
-  integrity sha512-iR8GBkDt0Q3GyaVcIu7mSsVIqnFbkbRzGLWlvhwunacoLwt4J3swfKhfaM6rN6WY+TBGoYT1GtT1mIh2/jGbRQ==
-
 "@noble/hashes@1.3.1", "@noble/hashes@^1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.3.1.tgz#8831ef002114670c603c458ab8b11328406953a9"
   integrity sha512-EbqwksQwz9xDRGfDST86whPBgM65E0OH/pCgqW0GBVzO22bNE+NuIbeTb714+IfSjU3aRk47EUvXIb5bTsenKA==
 
-"@noble/secp256k1@^1.5.4":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@noble/secp256k1/-/secp256k1-1.7.1.tgz#b251c70f824ce3ca7f8dc3df08d58f005cc0507c"
-  integrity sha512-hOUk6AyBFmqVrv7k5WAw/LpszxVbj9gGN4JRkIX52fdFAj1UA61KXmZDvqVEm+pOyec3+fIeZB02LYa/pWOArw==
-
-"@peerbit/blocks-interface@1.0.7", "@peerbit/blocks-interface@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@peerbit/blocks-interface/-/blocks-interface-1.0.7.tgz#e2a868ff4366648485f4b2cf2fd3dc1e4924c9b7"
-  integrity sha512-NF/kSCC2pQzzhIbqLg3MIVqVGFVCyBTaL6p0ILDLbXlsQ/bWZLaETjuJxgJcqh3Ok/NhMbrU+D17S/A1u0J9Mg==
+"@peerbit/blocks-interface@1.0.9", "@peerbit/blocks-interface@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@peerbit/blocks-interface/-/blocks-interface-1.0.9.tgz#c7872103627005366cf5a8d78eda055796db07f8"
+  integrity sha512-rza9X9J8Q8TZbSBZZo7/CoG5z/VGuSL2NV4YbW/fAl56u80bQpX0v7uUX2Y1bDoomUSp0LX5FW7iBGGZqMNo2w==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/crypto" "1.0.5"
-    "@peerbit/stream-interface" "^1.0.6"
+    "@peerbit/crypto" "1.0.6"
+    "@peerbit/stream-interface" "^1.0.7"
 
-"@peerbit/blocks@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@peerbit/blocks/-/blocks-1.0.10.tgz#d703191fd17fba081415bd8bf72c2fef5714fd1c"
-  integrity sha512-lSS5M9qDagRWOx9TrFUscyS+MHjSB2q+vexhUA5+LH+CogJIdvugZrgmL9Yo/RxsYcoZQMDMlM+u65SiTPqwRQ==
+"@peerbit/blocks@^1.0.14":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@peerbit/blocks/-/blocks-1.0.14.tgz#370605aabd55c9caead6daacbea5949d39d51542"
+  integrity sha512-6bP0QDLH3wu+GGQS/6tCmTnG8BpIfWeMkwvy0ScQIeUgqjh+cldFD+ubbhZehx2E9ea/CvrS1/dFPb714lWE3g==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
     "@ipld/dag-cbor" "^9.0.2"
-    "@peerbit/blocks-interface" "1.0.7"
-    "@peerbit/crypto" "1.0.5"
-    "@peerbit/lazy-level" "1.0.3"
-    "@peerbit/stream" "1.0.9"
+    "@peerbit/blocks-interface" "1.0.9"
+    "@peerbit/crypto" "1.0.6"
+    "@peerbit/lazy-level" "1.1.1"
+    "@peerbit/stream" "1.0.12"
     abstract-level "^1.0.3"
-    libp2p "^0.46.6"
+    libp2p "0.46.6"
     memory-level "^1.0.0"
 
-"@peerbit/cache@1.0.2", "@peerbit/cache@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@peerbit/cache/-/cache-1.0.2.tgz#4ce3419893495bac11851d3432185a17e9edd112"
-  integrity sha512-m/85AkY9xk0dT0mGRyjrcXCVdWEhfFoeHqkRrOy/TwysoPyreg6E1jrGJdG3w9yAMJnaj4Obcbehv3Ab+vxlJA==
+"@peerbit/cache@1.1.0", "@peerbit/cache@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@peerbit/cache/-/cache-1.1.0.tgz#997326b4493c5299aff4e1f3d5baa777a0e20ded"
+  integrity sha512-O6SehSwxLEzlcrCBKEb9bifMLzoeb1tepnoS6Q0te7rDOsuqQk8Fb0IdCEZ/OPEBA6eeRmhAckpKxoJ+nEseXw==
   dependencies:
     yallist "^4.0.0"
 
-"@peerbit/crypto@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@peerbit/crypto/-/crypto-1.0.5.tgz#7009980895eaa2cc2af2cd20835c4d2c0cf9a9ff"
-  integrity sha512-IUlMuHTReEyRn7Hzs9rPXM95X81MsmilPN+u9ChLa7zGqZ2M4xUM2QyRuM1h4MNy6HWq64mg+riMbVe0r7SNnQ==
+"@peerbit/crypto@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@peerbit/crypto/-/crypto-1.0.6.tgz#15e4e5e04b4623e48beca9f21cb20b2c64f5039a"
+  integrity sha512-CSFdVNlIdK7Pm2Wpa70HA/jgy/K+SWaDULKAMqVRS0PG3Yth6lQSoivqMWSuBMSKQ5ShIPCmUrJMhA+7a/vRsg==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
     "@ethersproject/wallet" "^5.7.0"
-    "@libp2p/crypto" "^1.0.17"
-    "@libp2p/peer-id" "^2.0.3"
-    "@peerbit/cache" "^1.0.2"
+    "@libp2p/crypto" "^2.0.3"
+    "@libp2p/peer-id" "^3.0.2"
+    "@peerbit/cache" "^1.1.0"
     "@peerbit/uint8arrays" "3.0.1"
     libsodium-wrappers "^0.7.11"
 
-"@peerbit/document@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@peerbit/document/-/document-3.0.3.tgz#063722d310d74847e262eb7b0ebd692086277e63"
-  integrity sha512-r2DU6eYw3mnBrVTtYNM/N3hYJD/T38yzxey1W88kPUcWAqByZIlblDyN5jYpbJSlNcqYs0mKYEovlbu0XYEvKA==
+"@peerbit/document@^3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@peerbit/document/-/document-3.0.8.tgz#b234f7636dbe7cc296e8cf2f5b688bc207cbaae5"
+  integrity sha512-gJvNHvp8FoMKsD+uVsqThbBw6UwEtYUC+zpgud5kUKxpTJ6/YuytMlX1YzEkjjkUQ4sGa3X7vXrBzF8DwesitQ==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/program" "2.2.2"
-    "@peerbit/rpc" "2.1.2"
-    "@peerbit/shared-log" "3.0.2"
+    "@peerbit/program" "2.2.5"
+    "@peerbit/rpc" "2.1.7"
+    "@peerbit/shared-log" "3.0.7"
 
-"@peerbit/lazy-level@1.0.3", "@peerbit/lazy-level@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@peerbit/lazy-level/-/lazy-level-1.0.3.tgz#42025eabe97d0e678936f5d4c864402e8b08190d"
-  integrity sha512-7DcqZadWYYk5YLjudLn6ZvZlOtg7VXWFYRnl4R9uvlV9zEBzRjKikrUwJQXMBJc1qG+ZNImh9bsVlxN65w+WWA==
+"@peerbit/lazy-level@1.1.1", "@peerbit/lazy-level@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@peerbit/lazy-level/-/lazy-level-1.1.1.tgz#68948d8ae2401fc85d9d40aa4f15ebe77cd523c5"
+  integrity sha512-sH8M+AuYSyUw+eQRj3Lo4uzRKFqgMts4NVwGa+rINbX/JtEQLZ7T7VRCOfv3OVPvHWgSRbCCqRyi75Eh3KWQHg==
   dependencies:
     "@peerbit/logger" "1.0.1"
-    "@peerbit/time" "1.0.2"
+    "@peerbit/time" "1.0.3"
     level "^8.0.0"
 
-"@peerbit/log@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@peerbit/log/-/log-2.0.2.tgz#ec5ab1cfa9deb7184e90e79cc2e6446eb5daaa3d"
-  integrity sha512-Bc61lmmrt97Rws9u2uJB6+LgN4lhf+yzoizJC/VF8WKv9KjqPWOQZQGVdhFm0KlUP808Hnljg1ZuHE39cwAM+Q==
+"@peerbit/log@2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@peerbit/log/-/log-2.0.7.tgz#fc7c952fb3df2a9406c0f6c46026e0d26f2736a1"
+  integrity sha512-8e8Xo5vWcVgQfQcaULa91WFQ17rELOUN1f8Uvtx9eLK3gz0el34a6I1K7wUlsR+IxhlE23ZjeIpYrWs8HAKTHw==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/blocks-interface" "^1.0.7"
-    "@peerbit/cache" "1.0.2"
-    "@peerbit/crypto" "1.0.5"
+    "@peerbit/blocks-interface" "^1.0.9"
+    "@peerbit/cache" "1.1.0"
+    "@peerbit/crypto" "1.0.6"
     "@peerbit/logger" "1.0.1"
-    libp2p "^0.46.6"
+    libp2p "0.46.6"
     p-queue "^7.3.3"
     path-browserify "^1.0.1"
     uuid "^9.0.0"
@@ -1384,91 +1344,91 @@
   dependencies:
     pino "^8.14.1"
 
-"@peerbit/program@2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@peerbit/program/-/program-2.2.2.tgz#bd66223d9845ddc6dbb05dd5243df31687c858d3"
-  integrity sha512-N9CmGsEjjeklNgX2F1jb5BARpSNCScn7F5wNJqaFNy16QYm2kvNudXF6HgDHTPXK/fp0vaoAmLqTVr3oecEB8A==
+"@peerbit/program@2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@peerbit/program/-/program-2.2.5.tgz#5f42f4b3a543a484be35845ae5adc8ed57110eff"
+  integrity sha512-d/YBLzbNQ8fPF/SVgCwQvOQsh91tXNIpmrMh6cgnpclcLiq1+7BnYL09FStg/vA1j7NdaQn3VIDV1j/V7ytVIg==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/blocks-interface" "^1.0.7"
-    "@peerbit/crypto" "1.0.5"
-    "@peerbit/lazy-level" "^1.0.3"
-    "@peerbit/pubsub-interface" "^1.1.0"
+    "@peerbit/blocks-interface" "^1.0.9"
+    "@peerbit/crypto" "1.0.6"
+    "@peerbit/lazy-level" "^1.1.1"
+    "@peerbit/pubsub-interface" "^1.1.1"
 
-"@peerbit/pubsub-interface@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@peerbit/pubsub-interface/-/pubsub-interface-1.1.0.tgz#a0d4e08f644d698c6904bca046bcc0fe9205ea0a"
-  integrity sha512-ic2hU9LDthDmIEpaDwTOgI4P+AEsbW7yB+BUiSnTx1HTXFIAcBy/j9UnPO4VzoxE829d29oYqam+YoSIUDE6Gw==
-  dependencies:
-    "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/crypto" "1.0.5"
-    "@peerbit/stream-interface" "^1.0.6"
-
-"@peerbit/pubsub@^1.1.1":
+"@peerbit/pubsub-interface@^1.1.1":
   version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@peerbit/pubsub/-/pubsub-1.1.1.tgz#e88a175ec61343c0a1f8ac5ee5255686eebf03ee"
-  integrity sha512-LvEy2RbSqj78cLIjOBQtkV9UX++DUlY749wp9fDD9PonfpA7wbZR1zFZI3wGIPHTRHN14hd9WFFKyZyqZ69tHQ==
+  resolved "https://registry.yarnpkg.com/@peerbit/pubsub-interface/-/pubsub-interface-1.1.1.tgz#7581d9e46654570363a46f8a2a2af9256d9e806f"
+  integrity sha512-LHCCVaDn+Mi9Bhp8291pmeOVqMbyJVlPk/1+NQj+c0yelI88EbfhHvQnswA3a1JxWov4C+PCRb/ZN/yoF/+D9A==
+  dependencies:
+    "@dao-xyz/borsh" "^5.1.5"
+    "@peerbit/crypto" "1.0.6"
+    "@peerbit/stream-interface" "^1.0.7"
+
+"@peerbit/pubsub@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@peerbit/pubsub/-/pubsub-1.1.4.tgz#4dfeab0f920d870a9afa970614804a9483de30d2"
+  integrity sha512-RQNcK4o9s2ncw0q0/0SurDLqEbbd7p/c3Q4ukWAqJyTdOSiCokpQ/f2V2uugZUKJ26hH636mSmaDOoM1a92LOA==
   dependencies:
     "@libp2p/interfaces" "^3.3.2"
     "@peerbit/logger" "1.0.1"
-    "@peerbit/stream" "1.0.9"
+    "@peerbit/stream" "1.0.12"
     "@peerbit/uint8arrays" "3.0.1"
     abstract-level "^1.0.3"
-    libp2p "^0.46.6"
+    libp2p "0.46.6"
     memory-level "^1.0.0"
 
-"@peerbit/rpc@2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@peerbit/rpc/-/rpc-2.1.2.tgz#4ca2f0d0b355f65183adda341ae3aa4aeecf32ed"
-  integrity sha512-Cp+zWKK2YFGudAFUzU7tRTfh+Y/wQDxYLmlrVlRb4KQPwOJuewhrMuSf5e5mNfPIBwpKxFTQhwCdhIP5DsHGQg==
+"@peerbit/rpc@2.1.7":
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/@peerbit/rpc/-/rpc-2.1.7.tgz#9b4b0a9de4a65a4a1185ef9ea0f1494b8b10c0c8"
+  integrity sha512-DGN8t/CkiF1d5JgYPTIKskMiewN/Mk8Z7qelFHDM5DWlWZ9ITP3Fhdb65Qry3v9LDYGJB05h8q1bc+eueY6mvA==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/crypto" "1.0.5"
+    "@peerbit/crypto" "1.0.6"
     "@peerbit/logger" "1.0.1"
-    "@peerbit/program" "2.2.2"
-    "@peerbit/time" "1.0.2"
+    "@peerbit/program" "2.2.5"
+    "@peerbit/time" "1.0.3"
 
-"@peerbit/shared-log@3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@peerbit/shared-log/-/shared-log-3.0.2.tgz#69ca3421275f39a46ba39f6d5504880240f1e913"
-  integrity sha512-CZjU6e5eU6YxJGLwe6lfi6bbpKGhyUgy0WN8fC1pjV1d/8mhbY9QJrRbPNBYrphpBiyJ317f0YjN3XpoAt07NQ==
+"@peerbit/shared-log@3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@peerbit/shared-log/-/shared-log-3.0.7.tgz#fe3ff5682cc8f13cb2c478b80fdfad3b5aeee564"
+  integrity sha512-vE2sgRTx+6ciRFrFbCGKGf/trbqykDPyIQd4x5xNFpE60YdX3oxNyD9X1jtIYdieqEhhWwbqwQ0OatWfcnpQgg==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/log" "2.0.2"
+    "@peerbit/log" "2.0.7"
     "@peerbit/logger" "1.0.1"
-    "@peerbit/program" "2.2.2"
-    "@peerbit/rpc" "2.1.2"
-    "@peerbit/time" "1.0.2"
+    "@peerbit/program" "2.2.5"
+    "@peerbit/rpc" "2.1.7"
+    "@peerbit/time" "1.0.3"
 
-"@peerbit/stream-interface@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@peerbit/stream-interface/-/stream-interface-1.0.6.tgz#620e41f6c4991b04e373408035f2fb0c2eb2bb27"
-  integrity sha512-j49tZcBtPvcW8zY5Kj3Kwn2NsOLNcJGY/sL+sGzrOwWzTLpbHOzBgjiCNKgLYWIkcJogF/Pp6lef1jFlTxO49A==
+"@peerbit/stream-interface@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@peerbit/stream-interface/-/stream-interface-1.0.7.tgz#2e38e24797d96a7fec79562ca749438fa18ae01a"
+  integrity sha512-sbjE/6UWZYT5N0c/i/5IthsDSNO9YI+CZcaLDY8f+vflqJC53G8otyn18+BgE2yAn404fuaFYoP3SRP+1TdKrQ==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@libp2p/interface-peer-id" "^2.0.2"
-    "@peerbit/crypto" "1.0.5"
+    "@libp2p/interfaces" "^3.3.2"
+    "@peerbit/crypto" "1.0.6"
 
-"@peerbit/stream@1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@peerbit/stream/-/stream-1.0.9.tgz#7b7ffb36418467d5d8af3192eb1c64fb366d00aa"
-  integrity sha512-s+LVjEqWl+D8aWWNvjq+Av5Pk03/iSh5mUMPN87wvEYe35HzQqauEDsFIjJA3tae0AO6h8jh91MaBp52Gyj3eQ==
+"@peerbit/stream@1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@peerbit/stream/-/stream-1.0.12.tgz#e7e842d7c8cc051b53b86fba7d6768dc35736671"
+  integrity sha512-lgQynvikvFgqC8gCo6p5uIvl320PsVf0K5VijshRttk43KpUaUH4/WOktZnCpn4huCDhAHOW637GWuB1Mt3JvQ==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
-    "@peerbit/cache" "1.0.2"
-    "@peerbit/crypto" "1.0.5"
-    "@peerbit/stream-interface" "^1.0.6"
+    "@peerbit/cache" "1.1.0"
+    "@peerbit/crypto" "1.0.6"
+    "@peerbit/stream-interface" "^1.0.7"
     abstract-level "^1.0.3"
     graphology "0.25.1"
     graphology-shortest-path "2.0.2"
-    libp2p "^0.46.6"
+    libp2p "0.46.6"
     memory-level "^1.0.0"
     yallist "^4.0.0"
 
-"@peerbit/time@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@peerbit/time/-/time-1.0.2.tgz#954ec4f21d8c191d030dd475cf31d0dbc97cf45a"
-  integrity sha512-5p4CMuEX2L6TdtZIengR0D/cQoc7Io5vmmXJ1G6DVw0Tv2q5aau2f/P0wcLG2p6Ji5b8DJxyWt+PIK1XgTRIVg==
+"@peerbit/time@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@peerbit/time/-/time-1.0.3.tgz#92afc494eef1424135aa586302e9e314463bf9b4"
+  integrity sha512-sNygfkz67Uf8txx+cCrWNm8o73cNHnu0HOKiWqICcyDnWXywgGgnpCBYouFwVkZjH4nvtRgFwAmtYv3kJJBVsQ==
 
 "@peerbit/uint8arrays@3.0.1":
   version "3.0.1"
@@ -3446,7 +3406,7 @@ leven@^3.1.0:
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
   integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
 
-libp2p@^0.46.6:
+libp2p@0.46.6:
   version "0.46.6"
   resolved "https://registry.yarnpkg.com/libp2p/-/libp2p-0.46.6.tgz#374d2af8e6401729a215af67c46fa03ed7d5bd0c"
   integrity sha512-5zDUpi4Foj30s+I/f6UC+wrO2u1CMLVFXby+AnCl1cEt4r+z92rLlN1Td0gUQjiAw1I3EL9yI+ASt3/Pts5IPw==
@@ -3911,10 +3871,10 @@ path-parse@^1.0.7:
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
   integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
-peerbit@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/peerbit/-/peerbit-2.0.0.tgz#dbfde4643b8e908f381611791dd601b83c2611e4"
-  integrity sha512-q4Jk4rAW4AAUdyvFurftn6F1Jk4EUWmsCOpRNX3T/qzY5JnWyOrrpbYJhywKJzrWElme19YF5uLtvuKYoM57cA==
+peerbit@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/peerbit/-/peerbit-2.0.5.tgz#885d01a21d4b1d1f088e5a6c8eae16a9c83b082c"
+  integrity sha512-WgqtRgr1l+2piQAc+hUkylDfnHy8+8DCIzkSaCdI0ayQ5754Lv4T6Q/m/Z4/sGh/YP7mVNpL8kQkFEaZw00TQw==
   dependencies:
     "@dao-xyz/borsh" "^5.1.5"
     "@dao-xyz/libp2p-noise" "^13.0.1"
@@ -3922,12 +3882,12 @@ peerbit@^2.0.0:
     "@libp2p/tcp" "^8.0.4"
     "@libp2p/webrtc" "^3.1.6"
     "@libp2p/websockets" "^7.0.4"
-    "@peerbit/blocks" "^1.0.10"
-    "@peerbit/crypto" "1.0.5"
-    "@peerbit/lazy-level" "1.0.3"
+    "@peerbit/blocks" "^1.0.14"
+    "@peerbit/crypto" "1.0.6"
+    "@peerbit/lazy-level" "1.1.1"
     "@peerbit/logger" "1.0.1"
-    "@peerbit/program" "2.2.2"
-    "@peerbit/pubsub" "^1.1.1"
+    "@peerbit/program" "2.2.5"
+    "@peerbit/pubsub" "^1.1.4"
     "@peerbit/uint8arrays" "3.0.1"
     datastore-level "^10.1.2"
     level "^8.0.0"
