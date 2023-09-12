@@ -12,7 +12,6 @@ const jestConfig: JestConfigWithTsJest = {
 		],
 	},
 	extensionsToTreatAsEsm: [".ts"],
-	forceExit: true,
 	moduleNameMapper: {
 		"^(\\.{1,2}/.*)\\.js$": "$1",
 	},
