@@ -190,11 +190,11 @@ describe("suite", () => {
 
         const db1 = await client.open(new MyDatabase());
         await db1.documents.put(new TextDocument("Hello"));
-        const db2 = await client2.open<MyDatabase>(db1.address); // role = new ReplicatorType() by default
+        const db2 = await client2.open<MyDatabase>(db1.address); // role = 'replicator' by default
 
         // You can also open with role ObserverType, to not do any replication work
-        // const db2 = await client2.open<MyDatabase>(db1.address, { role: new ObserverType() })
-        await db2.documents.put(new TextDocument("World")); // role = new ReplicatorType() by default
+        // const db2 = await client2.open<MyDatabase>(db1.address, { role: 'observer' })
+        await db2.documents.put(new TextDocument("World")); // role = 'replicator' by default
 
         // Check that both clients now have both documents
         // it documents will not sync be synced after 'await put' so we have to wait for them to arrive
