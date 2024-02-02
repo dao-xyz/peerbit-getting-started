@@ -46,7 +46,7 @@ describe("suite", () => {
         }
         const results = await db.documents.index.search(
             new SearchRequest({ query: [] }),
-            { local: true, remote: false }
+            { local: true, remote: false },
         );
         expect(results).toHaveLength(100);
         console.log("First document:", (results[0] as TextDocument).text);
@@ -57,15 +57,15 @@ describe("suite", () => {
                 query: [],
                 sort: [new Sort({ direction: SortDirection.ASC, key: "text" })],
             }),
-            { local: true, remote: false }
+            { local: true, remote: false },
         );
         const [first, second, third] = (await resultsSorted.next(3)) as [
             TextDocument,
             TextDocument,
-            TextDocument
+            TextDocument,
         ]; // cast BaseDocument to TextDocument (assume safe, else we can do instanceof checks before casting)
         console.log(
-            `Sorted documents: first "${first.text}", second "${second.text}", third "${third.text}"`
+            `Sorted documents: first "${first.text}", second "${second.text}", third "${third.text}"`,
         );
     });
 
@@ -115,7 +115,7 @@ describe("suite", () => {
 
         const results = await db.documents.index.search(
             new SearchRequest({ query: [] }),
-            { local: true, remote: false }
+            { local: true, remote: false },
         ); // Only search locally
         expect(results).toHaveLength(100);
         console.log("First document:", (results[0] as TextDocument).text);
@@ -135,13 +135,13 @@ describe("suite", () => {
         const FIXED_DATABASE_ID = randomBytes(32);
 
         const db1 = await client.open(
-            new MyDatabase({ id: FIXED_DATABASE_ID })
+            new MyDatabase({ id: FIXED_DATABASE_ID }),
         );
         const address1 = db1.address;
         await db1.drop();
 
         const db2 = await client.open(
-            new MyDatabase({ id: FIXED_DATABASE_ID })
+            new MyDatabase({ id: FIXED_DATABASE_ID }),
         );
         const address2 = db2.address;
 
@@ -203,7 +203,7 @@ describe("suite", () => {
 
         const results1 = await db1.documents.index.search(
             new SearchRequest({ query: [] }),
-            { local: true, remote: false }
+            { local: true, remote: false },
         );
         expect(results1.map((r) => (r as TextDocument).text).sort()).toEqual([
             "Hello",
@@ -212,7 +212,7 @@ describe("suite", () => {
 
         const results2 = await db1.documents.index.search(
             new SearchRequest({ query: [] }),
-            { local: true, remote: false }
+            { local: true, remote: false },
         );
         expect(results2.map((r) => (r as TextDocument).text).sort()).toEqual([
             "Hello",
