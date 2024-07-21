@@ -1414,18 +1414,18 @@
     "@peerbit/indexer-interface" "^1.0.0"
 
 "@peerbit/document@^7":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@peerbit/document/-/document-7.0.1.tgz#9ef478ce664d07a785bcbf46474b3dafd3d7ed18"
-  integrity sha512-MA/J0rQ/jpmQnlnaB/hpKqmZ/a3EpKyRPC6ADBE1BSHjFJpZshlymFsTRLSS2aF63VezNLSquHoqIigiCu5hiQ==
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@peerbit/document/-/document-7.0.4.tgz#8dfb4246b6d910d94bfb11aa3e1b5809d8ae4c85"
+  integrity sha512-ySqb3zc0amV+QTDEp/1xzMomvchBZZdCcyBcLm1SfQecbOmAgd1bn25qJRUDfQKUHmW5VWNefQONfv4mm0IsDw==
   dependencies:
     "@dao-xyz/borsh" "^5.2.3"
     "@peerbit/document-interface" "^1.0.0"
     "@peerbit/indexer-interface" "^1.0.0"
     "@peerbit/indexer-simple" "^1.0.0"
-    "@peerbit/indexer-sqlite3" "^1.0.0"
+    "@peerbit/indexer-sqlite3" "^1.0.2"
     "@peerbit/program" "5.0.0"
-    "@peerbit/rpc" "5.0.0"
-    "@peerbit/shared-log" "9.0.0"
+    "@peerbit/rpc" "5.0.2"
+    "@peerbit/shared-log" "9.0.2"
 
 "@peerbit/indexer-interface@^1.0.0":
   version "1.0.0"
@@ -1443,10 +1443,10 @@
   dependencies:
     "@peerbit/indexer-interface" "^1.0.0"
 
-"@peerbit/indexer-sqlite3@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@peerbit/indexer-sqlite3/-/indexer-sqlite3-1.0.0.tgz#25d317142996466a74dc3a8bd41fb7367ababa43"
-  integrity sha512-zPD6SUHbFsh/2wlz6QYnx95G7jQciUgI+HKeBYiGMG3eNqO7G/DvmqqyAttZ4xCYgwntk6jVWWOt+wr7LwYrhw==
+"@peerbit/indexer-sqlite3@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@peerbit/indexer-sqlite3/-/indexer-sqlite3-1.0.2.tgz#2e47559a93f8fb1164ad4da98c18cfee3535a7cd"
+  integrity sha512-9ProFT5Z+Ac/kYzv/kBroRccgQV3o+LPtjtOcX6RUL1LirGBJUrdBrNcsNYOpZGWyrlYVeAABvSs561FeS8y1g==
   dependencies:
     "@peerbit/indexer-interface" "^1.0.0"
     "@sqlite.org/sqlite-wasm" "^3.46.0-build2"
@@ -1460,10 +1460,10 @@
     "@peerbit/any-store" "^2.1.0"
     "@peerbit/crypto" "^2.3.0"
 
-"@peerbit/log@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@peerbit/log/-/log-4.0.0.tgz#87e524c7ec8077be2c080b8638ef350df9ce19e3"
-  integrity sha512-X2erZly0ky9G8gjuOXk5Z6EGkz32QfdAyJ8epe0bdd6dxJVLa/McHDG/PK7ALELhGc4s4LUn8X98E8YgId7Ccw==
+"@peerbit/log@4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@peerbit/log/-/log-4.0.2.tgz#96678e71218756dcbc09449a0358ceb26708e567"
+  integrity sha512-HJHSYIT+/1Kjg1lncdsJb7CbxaVOuntJwJy0Xgx+tR+0QgaYEI161NkdYYeQjFxyNBF/73hClTai3DLAT0GV2g==
   dependencies:
     "@dao-xyz/borsh" "^5.2.3"
     "@peerbit/blocks-interface" "^1.3.0"
@@ -1515,10 +1515,10 @@
     "@peerbit/stream" "4.0.6"
     libp2p "^1.8.1"
 
-"@peerbit/rpc@5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@peerbit/rpc/-/rpc-5.0.0.tgz#0cd9fe7920f5f550a008ec26429d41df318fd562"
-  integrity sha512-ERf6K0bVmquBNpOy18zFlwNoVcKFC2IJFl33SwMsBC4nBFFmtXE5ytoUvaHekxUtkeD5pbnBeodqk9ruWUdTtA==
+"@peerbit/rpc@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@peerbit/rpc/-/rpc-5.0.2.tgz#c48d1802d40dd090eba4c2ae45dce532871ee608"
+  integrity sha512-iYW8fcEJs+2zADdIljHImCj+GtN+xU1XCGZslvhqRpXqGhe06u2N8kCJyFkI/rAPKOl6Zp3vZNLLv8TXQXQmxQ==
   dependencies:
     "@dao-xyz/borsh" "^5.2.3"
     "@peerbit/crypto" "2.3.0"
@@ -1526,16 +1526,16 @@
     "@peerbit/program" "5.0.0"
     "@peerbit/time" "2.0.7"
 
-"@peerbit/shared-log@9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@peerbit/shared-log/-/shared-log-9.0.0.tgz#d1878fec912bab0ef7c4b368864064e0e34a7a10"
-  integrity sha512-tSqwG2orM+ayr2jYMG4GymPi9n0G7iUKfRlFRAXVR4JQ+ddTtmeTKBFYkSPM2qp80hHUOgLLKxKwpmKuwulJtg==
+"@peerbit/shared-log@9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@peerbit/shared-log/-/shared-log-9.0.2.tgz#6d88741188400b69ddfac7cd9e52a29325acc69f"
+  integrity sha512-erp72dpvnLcAOn1sFP4PAXBY0V9FIuM9iPtxNHTxzPKKHqGmQxZ3Sd0cjaOEjCxgwdNVbNpn3XBE8yXn5aaoVg==
   dependencies:
     "@dao-xyz/borsh" "^5.2.3"
-    "@peerbit/log" "4.0.0"
+    "@peerbit/log" "4.0.2"
     "@peerbit/logger" "1.0.3"
     "@peerbit/program" "5.0.0"
-    "@peerbit/rpc" "5.0.0"
+    "@peerbit/rpc" "5.0.2"
     "@peerbit/time" "2.0.7"
     p-debounce "^4.0.0"
 
@@ -4324,9 +4324,9 @@ path-type@^4.0.0:
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
 peerbit@^4:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/peerbit/-/peerbit-4.0.8.tgz#ad8928134d1507b4b30b1db5a275afce84be16be"
-  integrity sha512-XmUcE7gJxSF7NpFUotqjh8IxtAKZFVZgUvrTJ11bQaH35WjpP5bEIvkFDAgTJaoJkjcmRXvWkWM36Gvd84DlPA==
+  version "4.0.10"
+  resolved "https://registry.yarnpkg.com/peerbit/-/peerbit-4.0.10.tgz#21ce018cbecb1ea579f1c578c1694b123e25f223"
+  integrity sha512-IqkXRz3s38NZv+W8lXNl6+h5pCv7Ly3qf4C67sK4LciuXrZgi4nRkBGaoSnSRRcCJpspePT9UWZoBYWLyLUHGA==
   dependencies:
     "@chainsafe/libp2p-yamux" "^6.0.2"
     "@dao-xyz/borsh" "^5.2.3"
@@ -4340,7 +4340,7 @@ peerbit@^4:
     "@peerbit/blocks" "^2.1.0"
     "@peerbit/crypto" "2.3.0"
     "@peerbit/indexer-simple" "^1.0.0"
-    "@peerbit/indexer-sqlite3" "^1.0.0"
+    "@peerbit/indexer-sqlite3" "^1.0.2"
     "@peerbit/logger" "1.0.3"
     "@peerbit/program" "5.0.0"
     "@peerbit/pubsub" "^3.0.6"
