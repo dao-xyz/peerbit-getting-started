@@ -1,6 +1,11 @@
 import { MyDatabase, TextDocument } from "./index.js";
 import { Peerbit } from "peerbit";
-import { SearchRequest, Sort, SortDirection } from "@peerbit/document";
+import {
+    SearchRequest,
+    Sort,
+    SortDirection,
+    WithContext,
+} from "@peerbit/document";
 import { serialize, deserialize } from "@dao-xyz/borsh";
 import { Program } from "@peerbit/program";
 import { toBase64, fromBase64, randomBytes } from "@peerbit/crypto";
@@ -59,11 +64,7 @@ describe("suite", () => {
             }),
             { local: true, remote: false },
         );
-        const [first, second, third] = (await resultsSorted.next(3)) as [
-            TextDocument,
-            TextDocument,
-            TextDocument,
-        ]; // cast BaseDocument to TextDocument (assume safe, else we can do instanceof checks before casting)
+        const [first, second, third] = await resultsSorted.next(3); // cast BaseDocument to TextDocument (assume safe, else we can do instanceof checks before casting)
         console.log(
             `Sorted documents: first "${first.text}", second "${second.text}", third "${third.text}"`,
         );
