@@ -1,11 +1,6 @@
 import { MyDatabase, TextDocument } from "./index.js";
 import { Peerbit } from "peerbit";
-import {
-    SearchRequest,
-    Sort,
-    SortDirection,
-    WithContext,
-} from "@peerbit/document";
+import { SearchRequest, Sort, SortDirection } from "@peerbit/document";
 import { serialize, deserialize } from "@dao-xyz/borsh";
 import { Program } from "@peerbit/program";
 import { toBase64, fromBase64, randomBytes } from "@peerbit/crypto";
